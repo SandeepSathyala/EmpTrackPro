@@ -3,10 +3,7 @@ package com.example.SpringBoot.Application.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "employee")
@@ -32,8 +29,7 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    @NotNull(message = "Phone number cannot be null")
-    @Digits(integer = 10, fraction = 0, message = "Phone number must be 10 digits")
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits")
     @Column(name = "phone_number")
     private Long phoneNumber;
 

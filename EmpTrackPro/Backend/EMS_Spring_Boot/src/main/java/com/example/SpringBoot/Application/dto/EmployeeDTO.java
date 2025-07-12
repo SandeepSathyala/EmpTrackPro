@@ -1,23 +1,41 @@
 package com.example.SpringBoot.Application.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
+
+@Schema(description = "Employee Data Transfer Object")
 public class EmployeeDTO {
 
     @NotBlank(message = "Employee name is required")
+    @Schema(description = "Name of the employee", example = "Sandeep Sathyala")
     private String empName;
+
     @NotBlank(message = "Role must not be empty")
+    @Schema(description = "Role of the employee", example = "Java Developer")
     private String empRole;
+
+    @Schema(description = "Salary of the employee", example = "50000.0")
     @NotNull(message = "Salary must not be null")
     private Double empSalary;
-    @Email(message = "Invalid email")
+
+    @Schema(description = "Email address", example = "sandeep@gmail.com")
+    @NotBlank(message = "Email cannot be blank")
+    @Email(message = "Invalid email format")
     private String email;
+
     @NotNull(message = "Phone number is required")
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
+    @Schema(description = "Phone number", example = "9876543210")
     private Long phoneNumber;
+
+
     @Valid
+    @Schema(description = "Employee's address")
     private AddressDTO address;
 
     public EmployeeDTO() {}
