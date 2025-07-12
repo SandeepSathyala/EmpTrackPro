@@ -1,10 +1,13 @@
 package com.example.SpringBoot.Application.controller;
 
 import com.example.SpringBoot.Application.dto.EmployeeDTO;
+import com.example.SpringBoot.Application.exceptions.ApiErrorResponse;
 import com.example.SpringBoot.Application.model.Employee;
 import com.example.SpringBoot.Application.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,7 +50,10 @@ public class EmployeeController {
     @Operation(summary = "Get employee by ID", description = "Fetch employee by unique ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee found"),
-            @ApiResponse(responseCode = "404", description = "Employee not found")
+            @ApiResponse(responseCode = "404", description = "Employee not found",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @GetMapping("/getById/{id}")
     public Employee getEmployeeById(@Parameter(description = "ID of the employee to retrieve") @PathVariable("id")  Long empId) {

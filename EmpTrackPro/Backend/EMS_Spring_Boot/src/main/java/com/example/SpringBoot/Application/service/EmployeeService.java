@@ -2,6 +2,7 @@ package com.example.SpringBoot.Application.service;
 
 import com.example.SpringBoot.Application.dto.AddressDTO;
 import com.example.SpringBoot.Application.dto.EmployeeDTO;
+import com.example.SpringBoot.Application.exceptions.DuplicateEmailException;
 import com.example.SpringBoot.Application.exceptions.ResourceNotFoundException;
 import com.example.SpringBoot.Application.model.Address;
 import com.example.SpringBoot.Application.model.Employee;
@@ -20,6 +21,11 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(EmployeeDTO dto) {
+        if (dto.getEmail() != null && employeeRepo.findAll().stream()
+                .anyMatch(emp -> emp.getEmail().equalsIgnoreCase(dto.getEmail()))) {
+            throw new DuplicateEmailException("Email already exists: " + dto.getEmail());
+        }
+
         Employee emp = mapDtoToEntity(dto);
         return employeeRepo.save(emp);
     }
@@ -28,15 +34,14 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
 
-    public Employee getEmployeeById(long EmpId){
-        return employeeRepo.findById(EmpId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee with ID " + EmpId + " not found"));
+    public Employee getEmployeeById(long empId) {
+        return employeeRepo.findById(empId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee with ID " + empId + " not found"));
     }
 
-
     public Employee updateEmployee(Long empId, EmployeeDTO dto) {
-        Employee emp = employeeRepo.findById(empId).orElse(null);
-        if (emp == null) return null;
+        Employee emp = employeeRepo.findById(empId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + empId));
 
         if (dto.getEmpName() != null) emp.setEmpName(dto.getEmpName());
         if (dto.getEmail() != null) emp.setEmail(dto.getEmail());
@@ -60,6 +65,10 @@ public class EmployeeService {
     }
 
     public String deleteEmployee(Long empId) {
+        if (!employeeRepo.existsById(empId)) {
+            throw new ResourceNotFoundException("Employee not found with id: " + empId);
+        }
+
         employeeRepo.deleteById(empId);
         return "Deleted Successfully";
     }
