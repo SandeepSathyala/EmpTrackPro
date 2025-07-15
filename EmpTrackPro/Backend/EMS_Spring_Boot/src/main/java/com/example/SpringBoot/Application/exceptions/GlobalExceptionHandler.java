@@ -2,6 +2,7 @@ package com.example.SpringBoot.Application.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @ControllerAdvice // 🔹 Global ga exceptions ni handle cheyyadaniki use chestaru
 public class GlobalExceptionHandler {
 

@@ -7,10 +7,12 @@ import com.example.SpringBoot.Application.exceptions.ResourceNotFoundException;
 import com.example.SpringBoot.Application.model.Address;
 import com.example.SpringBoot.Application.model.Employee;
 import com.example.SpringBoot.Application.repository.EmployeeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class EmployeeService {
 
