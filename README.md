@@ -72,14 +72,14 @@ Exception Handling:
 ------------------------
 SpringBoot-Application/
 │
-├── controller/ # REST API controllers
-├── service/ # Business logic
-├── repository/ # JPA repositories
-├── model/ # JPA entities (Employee, Address)
-├── dto/ # Data Transfer Objects
-├── exception/ # Global & custom exception handling
-├── config/ # Swagger config (to be added)
-└── application.properties # DB & JPA configuration
+├── controller/ REST API controllers
+├── service/ Business logic
+├── repository/ JPA repositories
+├── model/ JPA entities (Employee, Address)
+├── dto/ Data Transfer Objects
+├── exception/ Global & custom exception handling
+├── config/ Swagger config (to be added)
+└── application.properties DB & JPA configuration
 
 
 ---
