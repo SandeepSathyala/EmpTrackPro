@@ -68,7 +68,7 @@ Exception Handling:
 
 ---
 
-** Folder Structure
+Folder Structure
 ------------------------
 SpringBoot-Application/
 │
